@@ -1,17 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // Check if the user is logged in on component mount
-  useEffect(() => {
-    const userLoggedIn = localStorage.getItem("isLoggedIn");
-    if (userLoggedIn === "true") {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const { userInfo } = useSelector((state) => state.auth);
 
   return (
     <div>
@@ -21,26 +13,43 @@ const HomePage = () => {
         </h2>
         <p className="text-lg text-gray-600 mb-6 max-w-2xl">
           This project is a MERN stack learning resource hub where you can
-          practice authentication, protected routes, Redux state management and
+          practice authentication, protected routes, Redux state management, and
           CRUD operations while managing your favorite MERN tutorials and
           resources.
         </p>
 
-        {/* If the user is logged in, show a personalized message */}
-        {isLoggedIn ? (
+        {/* Conditionally render content based on userInfo */}
+        {userInfo ? (
+          // Show different content when the user is logged in
           <div>
-            <h3 className="text-2xl text-gray-800 mb-4">
-              Welcome back, User! 😊
+            <h3 className="text-2xl font-semibold text-gray-700">
+              Welcome back, {userInfo.name}!
             </h3>
+            <p className="text-lg text-gray-600 mb-6">
+              You're logged in. Now you can explore your dashboard and manage
+              your profile and settings.
+            </p>
+
+            {/* Additional content when logged in */}
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-gray-700">
+                Your Resources
+              </h4>
+              <p className="text-gray-600">
+                Here, you can find tutorials, guides, and helpful resources to
+                enhance your MERN stack skills.
+              </p>
+            </div>
+
             <button
               className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/dashboard")} // Redirect to the dashboard or another page
             >
               Go to Dashboard
             </button>
           </div>
         ) : (
-          // If the user is not logged in, show the login and signup buttons
+          // Show login/signup buttons when no user is logged in
           <div className="space-x-4">
             <button
               className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
