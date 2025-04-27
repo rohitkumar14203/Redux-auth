@@ -3,7 +3,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // By default reducerPath value is api.
 //  we can also rename it if we want.
 export const apiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://redux-auth-b80r.onrender.com",
+  }),
   tagTypes: ["User"],
   endpoints: (builder) => ({}),
 });
