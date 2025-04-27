@@ -21,11 +21,7 @@ const HomePage = () => {
         {/* Conditionally render content based on userInfo */}
         {userInfo ? (
           // Show different content when the user is logged in
-          <div>
-            <h3 className="text-2xl font-semibold text-gray-700">
-              Welcome, {userInfo.name}!
-            </h3>
-
+          <div className="mt-3">
             <button
               className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
               onClick={() => navigate("/profile")} // Redirect to the dashboard or another page
